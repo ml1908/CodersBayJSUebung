@@ -20,7 +20,11 @@ async function execute() {
             Alter: 2
         };
     
-    if (column === "Vorname") {
+    const SpaltenIndex = columnNames[column];
+    
+    console.log(field[row][SpaltenIndex]);
+    
+    /*if (column === "Vorname") {
         console.log(`Der Wert in Zeile ${row - 1}, Spalte ${column} ist: ${result}`);
         console.log(field [row - 1][columnNames.Vorname])
     } else if (column === "Nachname") {
@@ -34,7 +38,7 @@ async function execute() {
     }
     console.log(`Der Wert in Zeile ${row - 1}, Spalte ${column} ist: ${result}`);
     
-}
+*/}
     execute().catch((err) => {
         console.error(err);
     }).finally(() => rl.close()); 
