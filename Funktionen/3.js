@@ -33,3 +33,10 @@ function high(a, b, c, d){
 }
 
 console.log(high(5,15, 7, 3))
+
+function biggestNumber(a, b, c, d){
+    return Math.max(a, b, c, d)
+}
+console.log(biggestNumber)
+
+
