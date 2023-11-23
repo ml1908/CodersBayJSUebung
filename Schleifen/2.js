@@ -17,3 +17,6 @@ for (let value of film) {
 }
 
 
+for (const property in film){
+    console.log(`${property}: ${object[property]}`);
+}
