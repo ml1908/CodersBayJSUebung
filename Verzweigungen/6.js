@@ -5,15 +5,15 @@ const prompt = (query) => new Promise((resolve) => rl.question(query, resolve));
 rl.on('close', () => process.exit(0));
 
 async function execute(){
-    const zahl1 = await prompt("Erste Zahl: ");
-    const zahl2 = await prompt("Zweite Zahl: ");
+    const zahl1 = parseFloat(await prompt("Erste Zahl: "));
+    const zahl2 = parseFloat(await prompt("Zweite Zahl: "));
     const op = await prompt("Operator: ");
-   
+    let ergebnis;
     
     
-    switch (ergebnis){
+    switch (op){
         case '+':
-             ergebnis = zahl1 + zahl2;
+            ergebnis = zahl1 + zahl2;
             break;
         case '-':
             ergebnis = zahl1 - zahl2;
