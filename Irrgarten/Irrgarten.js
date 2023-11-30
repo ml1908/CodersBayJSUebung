@@ -72,26 +72,35 @@ async function execute() {
             case 'A':
                 potentialPosition = {x: playerPosition.x, y: playerPosition.y + 1};
                 break;
+            case'X':
+                console.log("Du hast das Spiel beendet")
+                execute();
+                return;
             default:
                 execute();
                 return;
         }
         console.clear();
-        placePlayer(field, playerPosition);
+        
         placeGoal(field, goalPosition);
-        printField(field);
+        
         
 
         field[playerPosition.x][playerPosition.y] = '  ';
-        //field[potentialPosition.x][potentialPosition.y] = '  ';
+        
 
         if (field[potentialPosition.x][potentialPosition.y] === '# ') {
             console.log("Du kannst hier nicht durch Mauern fahren")
             execute();
         } else {
             field[potentialPosition.x][potentialPosition.y] = 'X ';
-            playerPosition = potentialPosition;
+            playerPosition.x = potentialPosition.x;
+            playerPosition.y = potentialPosition.y;
         }
+        //placePlayer(field, playerPosition);
+        placePlayer(field, potentialPosition)
+        printField(field);
+        
         if (playerPosition.x === goalPosition.x && playerPosition.y === goalPosition.y) {
             console.clear()
             placePlayer(field, playerPosition);
