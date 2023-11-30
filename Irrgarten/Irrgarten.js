@@ -58,7 +58,6 @@ async function execute() {
         let potentialPosition;
         let way = await prompt("Wähle deine Richtung (W,S,A,D): ");
 
-
         switch (way.toUpperCase()) {
             case 'W':
                 potentialPosition = {x: playerPosition.x - 1, y: playerPosition.y};
@@ -74,18 +73,16 @@ async function execute() {
                 break;
             case'X':
                 console.log("Du hast das Spiel beendet")
-                execute();
                 return;
             default:
                 execute();
                 return;
         }
         console.clear();
-        
-        placeGoal(field, goalPosition);
-        
-        
 
+        placeGoal(field, goalPosition);
+
+        
         field[playerPosition.x][playerPosition.y] = '  ';
         
 
@@ -96,11 +93,12 @@ async function execute() {
             field[potentialPosition.x][potentialPosition.y] = 'X ';
             playerPosition.x = potentialPosition.x;
             playerPosition.y = potentialPosition.y;
+            
         }
-        //placePlayer(field, playerPosition);
-        placePlayer(field, potentialPosition)
+        placePlayer(field, playerPosition);
+        placeGoal(field, goalPosition);
         printField(field);
-        
+
         if (playerPosition.x === goalPosition.x && playerPosition.y === goalPosition.y) {
             console.clear()
             placePlayer(field, playerPosition);
@@ -111,10 +109,6 @@ async function execute() {
 
     }
     while (true)
-
-
-
-
 
 
 }
