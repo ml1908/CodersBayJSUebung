@@ -90,7 +90,6 @@ async function execute() {
         if (field[potentialPosition.x][potentialPosition.y] === '# ') {
             console.log("Du kannst hier nicht durch Mauern fahren")
             
-            execute();
         } else {
             field[potentialPosition.x][potentialPosition.y] = 'X ';
             playerPosition.x = potentialPosition.x;
