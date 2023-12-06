@@ -13,12 +13,12 @@
 
 function printField(field) {
 
-    for (let zeile = 0; zeile < field.length; zeile++) {
-        let zeilenString = '';
-        for (let spalte = 0; spalte < field[zeile].length; spalte++) {
-            zeilenString = field[zeile][spalte] + zeilenString;
+    for (let row = 0; row < field.length; row++) {
+        let rowString = '';
+        for (let column = 0; column < field[row].length; column++) {
+            rowString = field[row][column] + rowString;
         }
-        console.log(zeilenString);
+        console.log(rowString);
     }
 }
 
@@ -56,7 +56,8 @@ rl.on('close', () => process.exit(0));
 async function execute() {
     do {
         let potentialPosition;
-        let way = await prompt("Wähle deine Richtung (W,S,A,D): ");
+        let way = await prompt("Wähle deine Richtung (W,S,A,D): \n");
+        
 
         switch (way.toUpperCase()) {
             case 'W':
@@ -88,6 +89,7 @@ async function execute() {
 
         if (field[potentialPosition.x][potentialPosition.y] === '# ') {
             console.log("Du kannst hier nicht durch Mauern fahren")
+            
             execute();
         } else {
             field[potentialPosition.x][potentialPosition.y] = 'X ';
@@ -104,7 +106,7 @@ async function execute() {
             placePlayer(field, playerPosition);
             printField(field);
             console.log('Glückwunsch, du hast das Ziel erreicht!');
-            break;
+            return true;
         }
 
     }
