@@ -34,7 +34,6 @@ const addProduct = async () => {
     menu();
 };
 
-// Funktion zum Suchen von Produkten
 const findProduct = async () => {
     const searchId = await prompt('Geben Sie die Produktnummer ein: ');
     const foundProduct = products.find(product => product.id === searchId);
@@ -42,13 +41,12 @@ const findProduct = async () => {
     if (foundProduct) {
         console.log('Gefundenes Produkt:', foundProduct);
     } else {
-        console.log('Produkt nicht gefunden.');
+        console.log(`Produkt mit der Nummer ${searchId} nicht gefunden.`);
     }
 
     menu();
 };
 
-// Funktion zum Speichern und Beenden
 const saveAndExit = () => {
     const jsonData = JSON.stringify(products, null, 2);
     try {
@@ -60,8 +58,6 @@ const saveAndExit = () => {
     }
 };
 
-// Hauptmenü
-//readFile(fileName, 'utf8', async (err, data) => {
     
 const menu = async () => {
     const choice = await prompt('Was möchten Sie tun? (a) Hinzufügen, (f) Finden, (x) Speichern und Beenden: ');
