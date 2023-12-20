@@ -8,7 +8,7 @@ rl.on('close', () => process.exit(0));
 
 let dataString = '[]';
 let productsArray;
-const fileName = 'data222.json';
+const fileName = 'data23452.json';
 
 readFile(fileName, 'utf8', async (err, data) => {
 
@@ -40,13 +40,13 @@ readFile(fileName, 'utf8', async (err, data) => {
     while (true);
 });
 
-function handleJsonFile(err, data) {
+async function handleJsonFile(err, data) {
     if (err) {
-        console.error("Error reading file\n");
-        writeFile('data.json', dataString, 'utf8', (err) => {
+        console.error("Error reading file", err.message);
+        await writeFile(fileName, dataString, 'utf8', (err, data) => {
             if (err) {
                 console.error('Error writing file: ', err.message)
-            } else {
+            } if (data) {
                 console.log('File is ready')
             }
         });
