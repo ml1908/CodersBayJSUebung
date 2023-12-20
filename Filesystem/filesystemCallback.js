@@ -8,45 +8,44 @@ rl.on('close', () => process.exit(0));
 
 let dataString = '[]';
 let productsArray;
-const fileName = 'data.json';
+const fileName = 'data222.json';
 
 readFile(fileName, 'utf8', async (err, data) => {
 
     handleJsonFile(err, data);
 
     do {
-            let choice = await prompt("Was möchten Sie tun? (a) Hinzufügen, (f) Finden, (x) Speichern und Beenden: ");
-            switch (choice.toLowerCase()) {
-                case 'a':
-                    await addProduct(productsArray);
-                    break;
-                case 'd':
-                    deleteProduct();
-                    break;
-                case 'f':
-                    await findProduct();
-                    break;
-                case 'x':
-                    //saveAndExit();
-                    break;
-                default:
-                    console.log('Ungültige Eingabe. Bitte wählen Sie a, f oder x.');
-                    return;
-            }
-            rl.close();
-            
+        let choice = await prompt("Was möchten Sie tun? (a) Produkt Hinzufügen, (f) Produkt Finden, (d) Produkt löschen (x) Speichern und Beenden: ");
+        switch (choice.toLowerCase()) {
+            case 'a':
+                await addProduct(productsArray);
+                break;
+            case 'd':
+                await deleteProduct();
+                break;
+            case 'f':
+                await findProduct();
+                break;
+            case 'x':
+                saveAndExit();
+                return;
+            default:
+                //console.log('Ungültige Eingabe. Bitte wählen Sie a, f, d oder x.');
+                console.clear();
+                continue;
+        }
+
+
     }
-    while (true)
+    while (true);
 });
 
 function handleJsonFile(err, data) {
-    console.log("HJF - err", err)
-    console.log("HJF - data", data)
     if (err) {
-        console.error("Error reading file");
+        console.error("Error reading file\n");
         writeFile('data.json', dataString, 'utf8', (err) => {
             if (err) {
-                console.error('Error writing file')
+                console.error('Error writing file: ', err.message)
             } else {
                 console.log('File is ready')
             }
@@ -70,16 +69,51 @@ async function addProduct(productsArray) {
         price: price
     };
     console.log(product)
-    
+
     productsArray.push(product);
-    console.log(productsArray)
-    saveAndExit();
+
+
+}
+
+async function deleteProduct() {
+    let productNumberDelete = await prompt("Produktnummer die du löschen möchtest: ");
+    let deleteIndex = productsArray.find(product => product.id === productNumberDelete);
+    if (deleteIndex !== -1) {
+        let deleteProduct = productsArray[deleteIndex];
+        console.log('Gefundenes Produkt:', deleteIndex);
+
+        let deleteChoice = await prompt('Willst du wirklich löschen? "Ja" oder "Nein": ');
+
+        switch (deleteChoice.toLowerCase()) {
+            case 'ja':
+                productsArray.splice(deleteIndex, 1);
+                console.log('Produkt erfolgreich gelöscht.');
+                return;
+            case 'nein':
+                console.log('Löschvorgang abgebrochen.');
+                return;
+            default:
+                console.log('Ungültige Eingabe. Löschvorgang abgebrochen.');
+                return;
+        }
+    }
+}
+
+async function findProduct() {
+    let productNumberFind = await prompt("Produktnummer: ");
+    let foundProduct = productsArray.find(product => product.id === productNumberFind);
+    //productsArray.find(productNumberFind);
+    console.clear()
+    if (foundProduct) {
+        console.log('Gefundenes Produkt:', foundProduct);
+    } else {
+        console.log(`Produkt mit der Nummer ${productNumberFind} nicht gefunden.`);
+    }
 }
 
 function saveAndExit() {
-    console.log("beforewrite - productsArray:", productsArray)
+    
     const dataToWrite = JSON.stringify(productsArray);
-    console.log("beforewrite - dataToWrite:", dataToWrite)
 
     writeFile(fileName, dataToWrite, 'utf8', (err) => {
         if (err) {
