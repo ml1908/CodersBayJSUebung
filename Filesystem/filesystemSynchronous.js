@@ -1,5 +1,4 @@
-﻿//const fs = require('fs');
-//const readline = require('readline-sync');
+﻿
 import {readFileSync, writeFileSync} from 'node:fs';
 import readline from 'readline';
 
@@ -78,31 +77,11 @@ const menu = async () => {
     }
 };
 
-// Start des Programms
+
 menu();
 
 
 
-/*
-import { readFileSync, writeFileSync } from 'node:fs';
-
-try {
-    const data = readFileSync('./package.json', 'utf-8');
-    
-    const dataObj = JSON.parse(data);
-    
-    
-    delete dataObj.private;
-
-    const dataToWrite = JSON.stringify(dataObj, null, 2);
-
-    writeFileSync('./package.json', dataToWrite, 'utf-8');
-
-    console.log('File saved succesfully!')
-} catch (err){
-    console.error('Error processing file')
-}
-*/
 
 
 
